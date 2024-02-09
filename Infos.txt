@@ -1,0 +1,5 @@
+https://github.com/dart-lang/sdk/blob/main/runtime/include/dart_api.h
+https://github.com/sam-mccall/mod_dart/blob/master/src/mod_dart.c
+https://github.com/DerKleinePunk/dart_shared_libray
+C:\Develop\flutter\bin\cache\dart-sdk\bin
+https://github.com/atrelinski/CMake-Example/blob/master/DynamicLib/d-hello.cpp
