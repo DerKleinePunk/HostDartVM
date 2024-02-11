@@ -6,6 +6,11 @@ int InitSystem(char* param1)
 {
     std::cout << param1 << " Starting Dart" << std::endl;
 
+    auto buffer_ = reinterpret_cast<char*>(::malloc(64));
+
+    free(buffer_);
+    buffer_ = nullptr;
+
     std::cout << "Version " << Dart_VersionString() << std::endl;
 
     const char* where = "C:\\Develop\\flutter\\bin\\cache\\dart-sdk\\bin";

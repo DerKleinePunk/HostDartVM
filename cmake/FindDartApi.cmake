@@ -8,7 +8,7 @@ SET(DARTAPI_SEARCH_PATHS
 	/opt/csw # Blastwave
 	/opt
     #C:/Develop/flutter/bin/cache/dart-sdk
-	D:/Projects/Privat/dart-sdk/sdk/out/DebugX64
+	D:/Projects/Privat/dart-sdk/sdk/out/DebugX64/dart-sdk
 	${DARTAPI_PATH}
 )
 
