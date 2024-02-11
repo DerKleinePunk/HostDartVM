@@ -1,0 +1,32 @@
+{
+    // Verwendet IntelliSense zum Ermitteln möglicher Attribute.
+    // Zeigen Sie auf vorhandene Attribute, um die zugehörigen Beschreibungen anzuzeigen.
+    // Weitere Informationen finden Sie unter https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": ".NET DartHostService",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "buildServer",
+            "program": "${workspaceFolder}/bin/Debug/DartHostService.dll",
+            "args": [],
+            "cwd": "${fileDirname}",
+            "stopAtEntry": false,
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "(WIN)SimpleTest",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "preLaunchTask": "buildSimpelTest",
+            "program": "${workspaceFolder}/bin/Debug/SimpleTest.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "console": "externalTerminal"
+        }
+
+    ]
+}

@@ -2,4 +2,14 @@
 
 #include <DartVMHelper_Export.h>
 
-DECLSPEC void InitSystem();
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
+DECLSPEC int InitSystem(char* param1);
+DECLSPEC void DeinitSystem();
+
+#ifdef __cplusplus
+}
+#endif

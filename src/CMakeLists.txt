@@ -1,0 +1,2 @@
+add_subdirectory(DartVMHelper)
+add_subdirectory(SimpleTest)

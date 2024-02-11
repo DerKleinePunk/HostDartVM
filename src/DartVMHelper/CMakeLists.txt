@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.8.2) # 3.8.0 is minimum version that allow Linux remote building and debugging
 project("DartVMHelper" CXX)
 
+FIND_PACKAGE(DartApi REQUIRED)
+
+
+
 # Remove trailing '\' and '/' at the end of the path, so can reliably compare
 STRING(REGEX REPLACE "[/\\]+$" "" CMAKE_SOURCE_DIR ${CMAKE_SOURCE_DIR})
 STRING(REGEX REPLACE "[/\\]+$" "" CMAKE_CURRENT_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
@@ -19,10 +23,18 @@ endif()
    
 file (GLOB SOURCES "*.cpp" "*/*.cpp")
 
+
+INCLUDE_DIRECTORIES(${DARTAPI_INCLUDE_DIR})
 add_library(DartVMHelper SHARED ${SOURCES})
 
+TARGET_LINK_LIBRARIES(DartVMHelper PRIVATE ${DARTAPI_LIBRARY})
+if (MSVC)
+  set_property(TARGET DartVMHelper PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
+  target_compile_definitions(DartVMHelper PUBLIC UNICODE _UNICODE)
+endif()
 set_target_properties(DartVMHelper PROPERTIES PUBLIC_HEADER include/DartVMHelper.h)
 target_include_directories(DartVMHelper PUBLIC ${CMAKE_BINARY_DIR}/exports)
+
 
 include (GenerateExportHeader)
 GENERATE_EXPORT_HEADER (DartVMHelper
@@ -36,7 +48,7 @@ MESSAGE(STATUS "Build DartVMHelper")
 
 # Make sure the compiler can find include files for our Hello library
 # when other libraries or executables link to Hello
-target_include_directories(DartVMHelper PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(DartVMHelper PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 
 # List files that install and/or package should provide.

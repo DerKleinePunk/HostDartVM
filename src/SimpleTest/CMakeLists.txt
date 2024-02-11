@@ -7,14 +7,19 @@ configure_file(
     "${CMAKE_CURRENT_BINARY_DIR}/version.h"
 )
 
-# version.h file is in output directory.
-# Add the binary tree directory to find the version.h file
+file(GLOB SOURCES "*.cpp" "*/*.cpp")
+
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
+
+add_executable(SimpleTest ${SOURCES})
+
+if (MSVC)
+  set_property(TARGET SimpleTest PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
+  target_compile_definitions(DartVMHelper PUBLIC UNICODE _UNICODE)
+endif()
 
 # Demo application require both libraries, so add them
 target_link_libraries(SimpleTest DartVMHelper)
-
-add_executable(SimpleTest main.cpp version.h)
 
 # Point to which directory Demo is copied during installation and packaging
 install(TARGETS SimpleTest DESTINATION SimpleTest)

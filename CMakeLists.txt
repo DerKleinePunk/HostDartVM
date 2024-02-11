@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8.2) # 3.8.0 is minimum version that allow Linux remote building and debugging
-project(UseDartVm)
+project(DartVMHelper)
 
 
 # Enforce c++11 standard.
@@ -13,14 +13,20 @@ set(Example_VERSION_PATCH 1)
 
 SET (MAINFOLDER ${PROJECT_SOURCE_DIR})
 
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake")
+
 #Build Cmake Environment
 SET(PKG_CONFIG_USE_CMAKE_PREFIX_PATH TRUE)
 find_package(PkgConfig)
 include(CheckCXXCompilerFlag)
 
-# This project consist of 3 components, each in one directory, so add each of them
-add_subdirectory(src/DartVMHelper)
-add_subdirectory(src/SimpleTest)
+SET (EXECUTABLE_OUTPUT_PATH "${MAINFOLDER}/bin")
+SET (LIBRARY_OUTPUT_PATH "${MAINFOLDER}/bin")
+SET (LIBS_DIR ${PROJECT_SOURCE_DIR}/libs/${TARGET})
+
+MESSAGE(STATUS "Build to ${EXECUTABLE_OUTPUT_PATH}")
+
+add_subdirectory(src)
 
 # USE_FOLDERS group cmake generated projects into one (CMakePredefinedTargets) folder
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
@@ -36,9 +42,3 @@ set(CPACK_PACKAGE_VERSION_MAJOR ${Example_VERSION_MAJOR})
 set(CPACK_PACKAGE_VERSION_MINOR ${Example_VERSION_MINOR})
 set(CPACK_PACKAGE_VERSION_PATCH ${Example_VERSION_PATCH})
 include(CPack)
-
-SET (EXECUTABLE_OUTPUT_PATH "${MAINFOLDER}/bin")
-SET (LIBRARY_OUTPUT_PATH "${MAINFOLDER}/lib")
-SET (LIBS_DIR ${PROJECT_SOURCE_DIR}/libs/${TARGET})
-
-MESSAGE(STATUS "Build to ${EXECUTABLE_OUTPUT_PATH}")

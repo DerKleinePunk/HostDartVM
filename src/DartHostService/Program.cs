@@ -3,10 +3,17 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
+namespace DartHostService;
+
 class Program
 {
     static void Main(string[] args)
     {
+        if(NativImpl.InitSystem("From C#") != 0)
+        {
+            
+        }
+
         var builder = WebApplication.CreateBuilder(args);
 
         // Add services to the container.

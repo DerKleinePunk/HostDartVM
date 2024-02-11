@@ -1,0 +1,29 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"command": "dotnet",
+            "type": "process",
+			"group": "build",
+			"problemMatcher": "$msCompile",
+			"label": "buildServer",
+			"args": [
+                "build",
+                "${workspaceFolder}/src/DartHostService/DartHostService.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+		},
+		{
+			"type": "cmake",
+            "label": "buildSimpelTest",
+            "command": "build",
+            "targets": [
+                "ALL_BUILD"
+            ],
+            "group": "build",
+            "problemMatcher": [],
+            "detail": "CMake template build task"
+		}
+	]
+}

@@ -1,0 +1,40 @@
+SET(DARTAPI_SEARCH_PATHS
+	~/Library/Frameworks
+	/Library/Frameworks
+	/usr/local
+	/usr
+	/sw # Fink
+	/opt/local # DarwinPorts
+	/opt/csw # Blastwave
+	/opt
+    #C:/Develop/flutter/bin/cache/dart-sdk
+	D:/Projects/Privat/dart-sdk/sdk/out/DebugX64
+	${DARTAPI_PATH}
+)
+
+FIND_PATH(DARTAPI_INCLUDE_DIR 
+    NAMES dart_api.h
+	HINTS
+	PATH_SUFFIXES include/dart include
+	PATHS ${DARTAPI_SEARCH_PATHS}
+)
+
+FIND_LIBRARY(DARTAPI_LIBRARY_TEMP
+	NAMES dart
+	HINTS
+	PATH_SUFFIXES bin
+	PATHS ${DARTAPI_SEARCH_PATHS}
+)
+
+IF(DARTAPI_LIBRARY_TEMP)
+    SET(DARTAPI_LIBRARY ${DARTAPI_LIBRARY_TEMP} CACHE STRING "Where dart can be found")
+ENDIF(DARTAPI_LIBRARY_TEMP)
+
+INCLUDE(FindPackageHandleStandardArgs)
+
+set(DARTAPI_LIBRARIES ${DARTAPI_LIBRARY})
+set(DARTAPI_INCLUDE_DIRS ${DARTAPI_INCLUDE_DIR})
+
+FIND_PACKAGE_HANDLE_STANDARD_ARGS(DartApi REQUIRED_VARS DARTAPI_LIBRARIES DARTAPI_INCLUDE_DIRS)
+
+mark_as_advanced(DARTAPI_LIBRARY DARTAPI_INCLUDE_DIR)
