@@ -29,7 +29,7 @@ add_library(DartVMHelper SHARED ${SOURCES})
 
 TARGET_LINK_LIBRARIES(DartVMHelper PRIVATE ${DARTAPI_LIBRARY})
 if (MSVC)
-  set_property(TARGET DartVMHelper PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
+  set_property(TARGET DartVMHelper PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
   target_compile_definitions(DartVMHelper PUBLIC UNICODE _UNICODE)
 endif()
 set_target_properties(DartVMHelper PROPERTIES PUBLIC_HEADER include/DartVMHelper.h)
@@ -50,6 +50,10 @@ MESSAGE(STATUS "Build DartVMHelper")
 # when other libraries or executables link to Hello
 target_include_directories(DartVMHelper PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
+if (MSVC)
+  set_property(TARGET DartVMHelper PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+  set_target_properties( DartVMHelper PROPERTIES VS_PLATFORM_TOOLSET v142 )
+endif()
 
 # List files that install and/or package should provide.
 # Each library should know what it want to distribute,
