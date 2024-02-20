@@ -1,10 +1,6 @@
 cmake_minimum_required(VERSION 3.8.2) # 3.8.0 is minimum version that allow Linux remote building and debugging
 project("DartVMHelper" CXX)
 
-FIND_PACKAGE(DartApi REQUIRED)
-
-
-
 # Remove trailing '\' and '/' at the end of the path, so can reliably compare
 STRING(REGEX REPLACE "[/\\]+$" "" CMAKE_SOURCE_DIR ${CMAKE_SOURCE_DIR})
 STRING(REGEX REPLACE "[/\\]+$" "" CMAKE_CURRENT_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR})

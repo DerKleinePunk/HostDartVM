@@ -19,6 +19,7 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake"
 SET(PKG_CONFIG_USE_CMAKE_PREFIX_PATH TRUE)
 find_package(PkgConfig)
 include(CheckCXXCompilerFlag)
+include(FetchContent)
 
 SET (EXECUTABLE_OUTPUT_PATH "${MAINFOLDER}/bin")
 SET (LIBRARY_OUTPUT_PATH "${MAINFOLDER}/bin")
@@ -26,7 +27,8 @@ SET (LIBS_DIR ${PROJECT_SOURCE_DIR}/libs/${TARGET})
 
 MESSAGE(STATUS "Build to ${EXECUTABLE_OUTPUT_PATH}")
 
-add_subdirectory(src)
+ADD_SUBDIRECTORY(dependencies)
+ADD_SUBDIRECTORY(src)
 
 # USE_FOLDERS group cmake generated projects into one (CMakePredefinedTargets) folder
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
