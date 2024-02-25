@@ -1,6 +1,6 @@
 #include "include/DartVMHelper.h"
 #include <dart_dll.h>
-#include <dart_api.h>
+#include <include/dart_api.h>
 #include <iostream>
 
 int InitSystem(char* param1)
@@ -22,9 +22,6 @@ int InitSystem(char* param1)
 
 void DeinitSystem()
 {
-    auto result = Dart_Cleanup();
-    if(result != nullptr) {
-        std::cout << result << std::endl;
-    }
+    DartDll_Shutdown();
     std::cout << "Dart Cleanup done" << std::endl;
 }

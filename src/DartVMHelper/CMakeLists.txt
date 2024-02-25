@@ -9,7 +9,7 @@ STRING(REGEX REPLACE "[/\\]+$" "" CMAKE_CURRENT_SOURCE_DIR ${CMAKE_CURRENT_SOURC
 # when library is part of other project, respect parent project settings.
 if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
 	# Enforce c++11 standard.
-	set (CMAKE_CXX_STANDARD 11)
+	set (CMAKE_CXX_STANDARD 17)
 endif()
 
 # Notification when too low version of C++ is set
@@ -18,20 +18,23 @@ if(NOT DEFINED CMAKE_CXX_STANDARD OR CMAKE_CXX_STANDARD LESS 11)
 endif()
    
 file (GLOB SOURCES "*.cpp" "*/*.cpp")
-
-
-INCLUDE_DIRECTORIES(${DARTAPI_INCLUDE_DIR})
+INCLUDE_DIRECTORIES(dart_dll)
 add_library(DartVMHelper SHARED ${SOURCES})
 
-TARGET_LINK_LIBRARIES(DartVMHelper PRIVATE ${DARTAPI_LIBRARY})
+target_link_libraries(DartVMHelper PRIVATE dart_dll)
+
 if (MSVC)
   set_property(TARGET DartVMHelper PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
   target_compile_definitions(DartVMHelper PUBLIC UNICODE _UNICODE)
   target_compile_definitions(DartVMHelper PUBLIC _USRDLL)
 endif()
+
+message(STATUS "libdartshared ${libsource_SRCS}")
+
 set_target_properties(DartVMHelper PROPERTIES PUBLIC_HEADER include/DartVMHelper.h)
 target_include_directories(DartVMHelper PUBLIC ${CMAKE_BINARY_DIR}/exports)
-
+target_include_directories(DartVMHelper PRIVATE ${libsource_SRCS}/src/include)
+target_include_directories(DartVMHelper PRIVATE ${DART_DIR}/runtime)
 
 include (GenerateExportHeader)
 GENERATE_EXPORT_HEADER (DartVMHelper
@@ -46,10 +49,12 @@ MESSAGE(STATUS "Build DartVMHelper")
 # Make sure the compiler can find include files for our Hello library
 # when other libraries or executables link to Hello
 target_include_directories(DartVMHelper PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_include_directories(DartVMHelper PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 if (MSVC)
   set_property(TARGET DartVMHelper PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
   set_target_properties( DartVMHelper PROPERTIES VS_PLATFORM_TOOLSET v142 )
+  set_target_properties( DartVMHelper PROPERTIES WindowsTargetPlatformVersion 10 )
 endif()
 
 # List files that install and/or package should provide.

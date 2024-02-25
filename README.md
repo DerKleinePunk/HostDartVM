@@ -13,3 +13,5 @@ dart pub get
 cd ../..
 dart ./scripts/build_helpers/bin/build_dart.dart -v -tall
 ```
+
+XCOPY D:\Projects\Privat\dart-sdk\*.* D:\Projects\Privat\HostDartVM\build\_deps\libdartshared-src\dart-sdk /S /E /C /H /R /Y /D

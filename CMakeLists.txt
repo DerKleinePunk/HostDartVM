@@ -25,9 +25,14 @@ SET (EXECUTABLE_OUTPUT_PATH "${MAINFOLDER}/bin")
 SET (LIBRARY_OUTPUT_PATH "${MAINFOLDER}/bin")
 SET (LIBS_DIR ${PROJECT_SOURCE_DIR}/libs/${TARGET})
 
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+set(CMAKE_CXX_EXTENSIONS )
+
 MESSAGE(STATUS "Build to ${EXECUTABLE_OUTPUT_PATH}")
 
 ADD_SUBDIRECTORY(dependencies)
+SET (DART_DIR "${libsource_SRCS}/dart-sdk/sdk")
 ADD_SUBDIRECTORY(src)
 
 # USE_FOLDERS group cmake generated projects into one (CMakePredefinedTargets) folder
